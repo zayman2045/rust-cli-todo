@@ -31,12 +31,6 @@ impl Task {
     }
 }
 
-// impl PartialEq for Task {
-//     fn eq(&self, other: &Self) -> bool {
-//         self.name == other.name && self.status == other.status
-//     }
-// }
-
 #[derive(Debug)]
 pub struct List {
     pub items: Vec<Task>,
@@ -80,9 +74,13 @@ pub fn take_command() -> (String, String) {
 
     if buffer == "exit\n" {
         return ("exit".to_string(), String::new());
+    } else if buffer.split_whitespace().count() == 1 {
+        println!("Invalid Usage. Use todo --help for more information");
+            process::exit(2)
     }
 
     // Parse buffer into command and content
+
     let (command, name) = match buffer.split_once(" ") {
         Some(input) => (input.0, input.1.trim()),
         None => {
@@ -93,7 +91,7 @@ pub fn take_command() -> (String, String) {
 
     let (command, name) = (command.trim(), name.trim());
 
-    if !["add", "complete", "delete"].contains(&command) {
+    if !["add", "complete", "delete", "todo"].contains(&command) {
         println!("Invalid command");
         process::exit(3)
     }

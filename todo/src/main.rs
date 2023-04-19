@@ -1,6 +1,6 @@
 // TODO:
 // Allow user to add, complete and delete Tasks, as well as displaying their status and number of completed vs incomplete tasks
-// Add --help configuration for help/usage, --display for displaying List
+// Add todo --help configuration for help/usage, todo --display for displaying List
 
 use todo::{take_command, List, Task, Status};
 

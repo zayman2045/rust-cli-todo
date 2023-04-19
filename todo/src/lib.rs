@@ -1,7 +1,7 @@
 use std::{fmt, io, process};
 
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub enum Status {
     Incomplete,
     Complete,

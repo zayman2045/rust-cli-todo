@@ -15,7 +15,7 @@ impl fmt::Display for Status {
     }
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub struct Task {
     pub name: String,
     pub status: Status,
@@ -67,25 +67,31 @@ impl List {
         self.calculate_items()
     }
 
-    // Update the list by mapping through it's Tasks
-    pub fn complete_task(&mut self, name: String){
-        self.items = self.items.iter().map(|task| {
-            if task.name == name {
-                Task {
-                    name: name.clone(),
-                    status: Status::Complete,
-                }   
-            } else {
+    pub fn complete_task(&mut self, input_name: &String) {
+        self.items = self
+            .items
+            .iter()
+            .map(|task| {
+                if &task.name == input_name {
+                    Task {
+                        name: input_name.clone(),
+                        status: Status::Complete,
+                    }
+                } else {
                     Task {
                         name: task.name.clone(),
-                        status: task.status.clone()
+                        status: task.status.clone(),
                     }
                 }
-        }).collect();
+            })
+            .collect();
         self.calculate_items();
     }
-    // TODO: Delete task
 
+    pub fn delete_task(&mut self, input_name: &String) {
+        self.items = self.items.iter().filter(|task| task.name != *input_name).cloned().collect();
+        self.calculate_items();
+    }
 }
 
 impl fmt::Display for List {
@@ -141,4 +147,5 @@ pub fn take_command() -> (String, String) {
     (command.to_string(), name.to_string())
 }
 
-
+// TODO: Function that takes the command and calls the appropriate method
+// pub fn run_command(command: String, name: String) {}

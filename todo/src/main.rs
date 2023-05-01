@@ -7,7 +7,7 @@ use todo::{take_command, List, Status, Task};
 fn main() {
     // Create List
     let mut list = List::new();
-    println!("\nTodo: 0 completed items. 0 incomplete items.\n-----\n\nEnter command:");
+    println!("\nTodo: 0 completed tasks. 0 incomplete tasks.\n-----\n\nEnter command:");
 
     loop {
         // Obtain the command
@@ -57,6 +57,7 @@ fn main() {
                     }
                 })
                 .collect();
+                list.calculate_items();
         }
 
         println!("{}", list);

@@ -37,36 +37,12 @@ fn main() {
                 .iter()
                 .any(|task| task.name == name && task.status == Status::Incomplete)
         {
-            // Update the list by mapping through it's Tasks
-            list.items = list
-                .items
-                .iter()
-                .map(|task| {
-                    // Set the status to Complete if the name matches
-                    if task.name == name {
-                        Task {
-                            name: name.clone(),
-                            status: Status::Complete,
-                        }
-                    // Return original ask if the name does not match
-                    } else {
-                        Task {
-                            name: task.name.clone(),
-                            status: task.status.clone(),
-                        }
-                    }
-                })
-                .collect();
-                list.calculate_items();
+            // 
+            list.complete_task(name);
         }
 
         println!("{}", list);
     }
-
-    // TODO:
-    // Only add item if it does not already exist in List
-    // Only complete item if it has been added
-    // Can delete item if it has been completed or deleted
 
     ();
 }

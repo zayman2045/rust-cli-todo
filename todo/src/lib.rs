@@ -66,6 +66,26 @@ impl List {
         self.items.push(task);
         self.calculate_items()
     }
+
+    // Update the list by mapping through it's Tasks
+    pub fn complete_task(&mut self, name: String){
+        self.items = self.items.iter().map(|task| {
+            if task.name == name {
+                Task {
+                    name: name.clone(),
+                    status: Status::Complete,
+                }   
+            } else {
+                    Task {
+                        name: task.name.clone(),
+                        status: task.status.clone()
+                    }
+                }
+        }).collect();
+        self.calculate_items();
+    }
+    // TODO: Delete task
+
 }
 
 impl fmt::Display for List {
@@ -121,5 +141,4 @@ pub fn take_command() -> (String, String) {
     (command.to_string(), name.to_string())
 }
 
-// Create a function that takes command and name and returns a Result<Task, Err>?
-// Allow this function to handle the command and operate on the List or propagate and error
+

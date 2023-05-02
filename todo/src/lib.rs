@@ -149,3 +149,51 @@ pub fn take_command() -> (String, String) {
 
 // TODO: Function that takes the command and calls the appropriate method
 // pub fn run_command(command: String, name: String) {}
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn task_added() {
+        let mut list = List::new();
+        let test_task = Task::new("test".to_string());
+        list.add_task(test_task);
+        assert_eq!(list.incomplete_tasks, 1);
+        assert_eq!(list.completed_tasks, 0);
+    }
+
+    #[test]
+    fn task_completed() {
+        let mut list = List::new();
+        let test_task = Task::new("test".to_string());
+        list.add_task(test_task);
+        list.complete_task(&"test".to_string());
+        assert_eq!(list.incomplete_tasks, 0);
+        assert_eq!(list.completed_tasks, 1);
+    }
+
+    #[test]
+    fn incomplete_task_deleted() {
+        let mut list = List::new();
+        let test_task = Task::new("test".to_string());
+        list.add_task(test_task);
+        assert_eq!(list.incomplete_tasks, 1);
+        list.delete_task(&"test".to_string());
+        assert_eq!(list.incomplete_tasks, 0);
+    }
+
+    #[test]
+    fn completed_task_deleted() {
+        let mut list = List::new();
+        let test_task = Task::new("test".to_string());
+        list.add_task(test_task);
+        list.complete_task(&"test".to_string());
+        assert_eq!(list.completed_tasks, 1);
+        assert_eq!(list.incomplete_tasks, 0);
+        list.delete_task(&"test".to_string());
+        assert_eq!(list.completed_tasks, 0);
+        assert_eq!(list.incomplete_tasks, 0);
+    }
+}

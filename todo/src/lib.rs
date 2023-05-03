@@ -151,9 +151,6 @@ pub fn take_command() -> (String, String) {
     (command.to_string(), name.to_string())
 }
 
-// TODO: Function that takes the command and calls the appropriate method
-// pub fn run_command(command: String, name: String) {}
-
 
 #[cfg(test)]
 mod tests {

@@ -96,13 +96,17 @@ impl List {
 
 impl fmt::Display for List {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let title = "TODO LIST";
+        let bar = "|";
+        let task_count = format!("{} completed tasks. {} incomplete tasks.", self.completed_tasks, self.incomplete_tasks);
         write!(
             f,
-            "\nTodo: {} completed tasks. {} incomplete tasks\n-----\n",
-            self.completed_tasks, self.incomplete_tasks
+            "\n{:-^50}\n|{task_count: ^48}|\n{bar: <25}{bar: >25}\n",
+            title
         )?;
         for i in 0..self.items.len() {
-            write!(f, "{}, {}\n", self.items[i].name, self.items[i].status)?;
+            let task_output = format!("{}: {}", self.items[i].name, self.items[i].status);
+            write!(f, "|{task_output: ^48}|\n")?;
         }
         write!(f, "\nEnter command:")
     }

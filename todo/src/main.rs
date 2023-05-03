@@ -7,7 +7,7 @@ use todo::{take_command, List, Status, Task};
 fn main() {
     // Create List
     let mut list = List::new();
-    println!("\nTodo: 0 completed tasks. 0 incomplete tasks.\n-----\n\nEnter command:");
+    println!("{}", list);
 
     loop {
         // Take the command for the user
